@@ -1,0 +1,54 @@
+package CountingSort;
+
+public class CountingSort {
+
+    public static void defaul(int[] dizi) {
+        for (int i = 0; i < dizi.length; i++) {
+            dizi[i] = 0;
+        }
+    }
+
+    public static int max(int[] dizi, int max, int index) {
+        if (dizi.length == index) {
+            return max;
+        } else {
+            if (max < dizi[index]) {
+                max = dizi[index];
+            }
+            return max(dizi, max, index + 1);
+        }
+    }
+
+    public static void countingsort(int dizi[]) {
+        int[] tmpdizi = new int[max(dizi, 0, 0) + 1];
+        defaul(tmpdizi);
+        for (int i = 0; i < dizi.length; i++) {
+            tmpdizi[dizi[i]] += 1;
+        }
+        for (int i = 0; i < dizi.length; i++) {
+            for (int j = 0; j < tmpdizi.length; j++) {
+                if (tmpdizi[j] != 0) {
+                    for (int k = 0; k < tmpdizi[j]; k++) {
+                        dizi[i] = j;
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+
+    public static void yazdir(int[] dizi) {
+        for (int i = 0; i < dizi.length; i++) {
+            System.out.print(dizi[i] + "  ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] dizi = {36, 5, 3, 84, 8, 12, 1, 1, 1, 1, 23};
+        yazdir(dizi);
+        countingsort(dizi);
+        System.out.println("");
+        yazdir(dizi);
+    }
+
+}
